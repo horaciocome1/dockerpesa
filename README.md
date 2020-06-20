@@ -1,5 +1,5 @@
 # DockerPesa
-DockerPesa is an M-Pesa C2B API image for docker, You dont need any SDK or programming language, 
+DockerPesa is a complete M-Pesa API docker image, You dont need any SDK or programming language, 
 all you need is two minutes deploy it 
 
 ## Installation
@@ -41,11 +41,59 @@ Now you can run you can create a docker container by running the image you just 
 ```bash
 docker run --rm -d  -p 8080:8080/tcp mydockerpesa:latest
 ```
-##
+## C2B Payments
+### Request
 
-## Make a C2B Payment
-since your docker container is running on port 8080,if you are on local host just send a post request
-to localhost:8080 with this parameters msidsdn=84xxxxx and amount=200
+`POST /c2b/`
+
+    curl -i -H 'Accept: application/json' -d 'msidsdn=84xxxxxx&amount=300'  http://localhost:8080/c2b/
+### Response
+    
+    https://developer.mpesa.vm.co.mz/apis/5/6/#response
+    
+## B2C Payments
+### Request
+
+`POST /b2c/`
+
+    curl -i -H 'Accept: application/json' -d 'msidsdn=84xxxxxx&amount=300'  http://localhost:8080/b2c/
+### Response
+    
+    https://developer.mpesa.vm.co.mz/apis/5/6/#response
+
+## Query Transaction
+### Request
+
+`POST /query/`
+     curl -i -H 'Accept: application/json' -d 'qr=QueryReference&tpr=thirdPartyReference'  http://localhost:8080/reverse/
+
+    
+### Response
+    
+    https://developer.mpesa.vm.co.mz/apis/5/6/#response
+    
+## Reverse Transaction
+### Request
+
+`POST /reverse/`
+     curl -i -H 'Accept: application/json' -d 'tid=TransactionId&sc=securityCredential&ii=initiatorIdentifier&tpr=ThirdPartyReference' http://localhost:8080/reverse/
+    
+### Response
+    
+    https://developer.mpesa.vm.co.mz/apis/5/6/#response
+    
+    
+  ## B2b Transaction
+### Request
+
+`POST /b2b/`
+     curl -i -H 'Accept: application/json' -d 'rpc=RemotePartyCode&amount=200'  http://localhost:8080/b2b/
+
+    
+### Response
+    
+    https://developer.mpesa.vm.co.mz/apis/5/6/#response
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
